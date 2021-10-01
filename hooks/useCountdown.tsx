@@ -7,7 +7,7 @@ import { ethers } from "ethers";
 
 function getCountdown(contract: any, address: any) {
   return async (_: string, address: string) => {
-    const currentTime = await contract.blizzardBake(address);
+    const currentTime = await contract.busdBake(address);
     if (currentTime != 0){
     const addTime = currentTime.toNumber() + 86400
     const ms = addTime * 1000
@@ -15,7 +15,7 @@ function getCountdown(contract: any, address: any) {
     const formattedDate = date.toLocaleString(); 
     return formattedDate;
     } else {
-    return "Wait, you haven't hired any yeti!";
+    return "Wait, you haven't bought any printers!";
     }
   };
 }
