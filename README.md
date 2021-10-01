@@ -2,5 +2,5 @@
 
 ## Features
 
-- It mints xBLZD cmon man
+- It mints BUSD cmon man
 
