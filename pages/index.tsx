@@ -185,7 +185,7 @@ function Home() {
           <VStack p={5}>
               <Text color="gray.500" fontSize="md" fontWeight="semibold">Use your referral link to get free printers!</Text>
               {isConnected ? <>
-              <Link href={`https://busdstax.money?ref=${account}`}><Text color="gray.500" fontSize="10px" fontWeight="semibold">https://busd.money?ref={account}</Text></Link></> :
+              <Link href={`https://busdstax.money?ref=${account}`}><Text color="gray.500" fontSize="10px" fontWeight="semibold">https://busdstax.money?ref={account}</Text></Link></> :
               <Spinner mb={3} color="blue.500" />
               }
             </VStack>
