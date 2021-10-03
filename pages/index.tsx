@@ -32,6 +32,7 @@ import useCountdown from "../hooks/useCountdown";
 import useCakeApproval from "../hooks/useCakeApproval";
 import useCakeBaking from "../hooks/useCakeBaking";
 import { FaTwitter, FaTelegram } from "react-icons/fa"
+import { parseBalance } from "../util";
 var isLoading = false;
 function Home() {
   
@@ -39,6 +40,7 @@ function Home() {
   const triedToEagerConnect = useEagerConnect();
   const [CAKE, setCAKE] = useState('');
   const [miners, setMiners] = useState('');
+  const [printers, setPrinters] = useState('0')
   const balCAKE = useTokenBalance(account, "0xe9e7cea3dedca5984780bafc599bd69add087d56")
   const cakeContract = useTokenContract("0xe9e7cea3dedca5984780bafc599bd69add087d56")
   const miner = useMinter()
@@ -53,12 +55,34 @@ function Home() {
   const BAL = (Number(preFeeBAL.data) * 0.95).toFixed(2)
   const TVL = (Number(cakeBal.data))
 
+  const asyncSetMiners = async (event) => {
+    setMiners(event)
+  }
+  const asyncSetPrinters = async (value) => {
+    setPrinters(value)
+  }
+
+  async function onMinerFieldChange(event: any){
+    await asyncSetMiners(event)
+    await getEstimatedMiners(event).then(result =>
+      asyncSetPrinters(result))
+  }
+
+    const getEstimatedMiners = async(event) => {
+    if(Number(event) > 0){
+    const estimatedBuy = await miner.calculateBusdBuySimple(ethers.utils.parseEther(event));
+    const estimatedMiners = (Number(estimatedBuy) * 2)
+    return parseBalance(estimatedMiners,7,0)
+    }
+    return "0";
+  }
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hostname = window.location.href;
       const split = hostname.split("=")
-      const ref = split[1]
-   }
+      const ref = split[1]   }
+   
   })
 
 
@@ -161,15 +185,15 @@ function Home() {
           <Center borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
           <VStack p={5}>
               <Text color="gray.500" p={1}>2. Exchange BUSD To Buy Printers. Printers mint you BUSD!</Text>
-              <Input onChange={event => setMiners(event.target.value)} value={miners} placeholder="Amount of BUSD" />
+              <Input onChange={e => onMinerFieldChange(e.target.value)} value={miners} placeholder="Amount of BUSD" />
               <HStack>
               {isConnected ? <>
-              <Button variant="link" onClick={(e) => setMiners(balCAKE.data)}>{balCAKE.data}</Button>
+              <Button variant="link" onClick={(e) => onMinerFieldChange(balCAKE.data)}>{balCAKE.data}</Button>
               <Text color="gray.500" p={1}>available BUSD</Text></> :
               <Spinner mb={3} color="blue.500" />
               }
               </HStack>
-              <Button onClick={() => investCAKE(ethers.utils.parseEther(miners))} colorScheme="yellow">Buy Printers</Button>
+              <Button onClick={() => investCAKE(ethers.utils.parseEther(miners))} colorScheme="yellow">Buy {printers} Printers</Button>
             </VStack>
           </Center>
           <Center borderRadius="30px" boxShadow="lg" bg="white" alignItems="center" width={{base: "90vw", md: "40vw"}}>
