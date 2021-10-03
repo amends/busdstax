@@ -71,8 +71,9 @@ function Home() {
     const getEstimatedMiners = async(event) => {
     if(Number(event) > 0){
     const estimatedBuy = await miner.calculateBusdBuySimple(ethers.utils.parseEther(event));
-    const estimatedMiners = (Number(estimatedBuy) * 3.92).toFixed(0)
-    return parseBalance(estimatedMiners,7,0)
+    const hatch = await miner.BUSD_TO_HATCH_1MINERS();
+    const estimatedMiners = ((Number(estimatedBuy) / Number(hatch) * .95).toFixed(0))
+    return estimatedMiners
     }
     return "0";
   }
