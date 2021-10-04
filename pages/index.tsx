@@ -120,7 +120,7 @@ function Home() {
   }
 
   return (
-    <Box bg="yellow.500" minW="100vw" minH="100vh">
+    <Box bg="yellow.500">
     <>
       <Head>
         <title>BUSDStax BUSD Minting</title>
