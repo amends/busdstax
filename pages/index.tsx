@@ -129,9 +129,7 @@ function Home() {
           <Center pt={5}>
           <VStack>
           <Button colorScheme="gray"><Account triedToEagerConnect={triedToEagerConnect} /></Button>
-          <Heading px={10} size="md" as="a" href="https://cakestax.money" color="white">Looking to bake CAKE? Click here for CakeStax.</Heading>
-          <Heading px={10} size="md" as="a" href="https://ziggystax.money" color="white">Looking to mine POTS? Click here for ZiggyStax.</Heading>
-          <Heading px={10} size="md" as="a" href="https://yetistax.money" color="white">Looking to mint xBLZD? Click here for YetiStax.</Heading>
+          <Heading px={10} size="md" as="a" href="https://bscstax.money" color="white">Looking for more STAX? Click here for BSCStax</Heading>
           </VStack>
           </Center>
           <SimpleGrid column={5} spacing={5} justifyItems="center">
