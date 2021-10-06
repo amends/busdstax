@@ -52,7 +52,7 @@ function Home() {
   const date = useCountdown(account)
   const isCakeApproved = useCakeApproval("0x884aFe9CbB26C27622bccD5D469607515B721b4E", account);
   const cakeBal = useCakeBaking();
-  const BAL = (Number(preFeeBAL.data) * 0.95).toFixed(2)
+  const BAL = checkBal(preFeeBAL)
   const TVL = (Number(cakeBal.data))
 
   const asyncSetMiners = async (event) => {
@@ -117,6 +117,14 @@ function Home() {
   }
   async function sellCAKE(){
     const pop = await miner.sellBusd()
+  }
+
+  function checkBal(bal: any){
+    if (bal.data === undefined){
+      return "0";
+    } else {
+      return (Number(bal.data) * 0.95).toFixed(2)
+    }
   }
 
   return (
